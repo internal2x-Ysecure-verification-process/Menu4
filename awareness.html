@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Awareness</title></head>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Awareness Reminder</title>
+
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #111;
+        margin: 0;
+        padding: 20px;
+        color: white;
+    }
+
+    .container {
+        max-width: 450px;
+        background: #000000cc;
+        padding: 30px;
+        border-radius: 18px;
+        margin: auto;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 10px 0;
+    }
+
+    .icon {
+        font-size: 24px;
+        margin-right: 6px;
+    }
+
+    ul {
+        margin-top: 14px;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 26px;
+        padding: 14px;
+        background: #ff0054;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .btn:hover {
+        background: #cc0044;
+    }
+</style>
+
+</head>
 <body>
-<h2>⚠️ Oops! Someone could have captured your data just now.</h2>
-<p>You’ve just interacted with a simulated Quishing scenario.</p>
-<p>Never enter your real password on unknown or unexpected pages — even if they look legitimate.</p>
-<p>Always verify QR codes and URLs before sharing sensitive information.</p>
-<a href="https://porscheconsulting.sharepoint.com/sites/co-it/sitepages/Information-Security.aspx">Find out more</a>
+
+<div class="container">
+    <h1>⚠️ Oops! Someone could have captured your data just now.</h1>
+
+    <p>Don’t worry — this time it was only a <strong>test</strong>.  
+    But this is exactly how a real <strong>Quishing attack</strong> works.</p>
+
+    <p>A seemingly useful or attractive offer.  
+    A login form… and your data would have been gone.</p>
+
+    <h3>Remember:</h3>
+    <ul>
+        <li>🔍 Always check the URL.</li>
+        <li>🚫 Never enter your password on pages you accessed via QR code.</li>
+        <li>⚡ QR codes can always be replaced or tampered with.</li>
+    </ul>
+
+    <p>Thanks for taking part — you’re now a bit safer out there. 🚀</p>
+
+    <a class="btn" href="https://porscheconsulting.sharepoint.com/sites/co-it/sitepages/Information-Security.aspx?xsdata=MDV8MDJ8YXJnamVuZGEucmV4aGFAbWhwLmNvbXw2ZjE2OTZkZDNjYjM0NjZmNzQ4YTA4ZGQ4ZWViMDYyMnxhMjE0MjRkMWY2NTE0ZWQ0ODliZjZlZGFhMGJkNWVlNHwwfDB8NjM4ODIzODYyODQ4NjYwODM0fFVua25vd258VFdGcGJHWnNiM2Q4ZXlKRmJYQjBlVTFoY0draU9uUnlkV1VzSWxZaU9pSXdMakF1TURBd01DSXNJbEFpT2lKWGFXNHpNaUlzSWtGT0lqb2lUV0ZwYkNJc0lsZFVJam95ZlE9PXwwfHx8&sdata=MitjRnE3TDhGQTh0NVUzanY5WjdMSXgyWHVvZXgwUkZjUEpsQSthZ3R5Zz0%3D#pcon-information-security-officeinformationsecurity-porsche-consulting.com" target="_blank">
+        Find out more
+    </a>
+</div>
+
 </body>
 </html>
