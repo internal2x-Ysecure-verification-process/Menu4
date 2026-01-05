@@ -6,55 +6,144 @@
 <title>Porsche Consulting – Weekly Menu</title>
 
 <style>
-  :root { --pc-blue:#007bff; --pc-bg:#f4f6fb; }
+  :root { --pc-blue:#007bff; --pc-bg:#f4f6fb; --pc-pink:#ff0054; }
+
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:var(--pc-bg); margin:0; padding:20px;
+    background:var(--pc-bg);
+    margin:0;
+    padding:20px;
   }
+
   .container{
-    max-width:420px; margin:auto; background:#fff; padding:28px;
-    border-radius:18px; box-shadow:0 6px 25px rgba(0,0,0,0.08);
+    max-width:420px;
+    margin:auto;
+    background:#fff;
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 6px 25px rgba(0,0,0,0.08);
   }
-  .brand{font-size:13px; letter-spacing:.2px; color:#666; margin-bottom:10px;}
-  h1{font-size:22px; margin:0 0 10px 0; line-height:1.25;}
-  p{color:#444; line-height:1.45; font-size:15px; margin:10px 0;}
-  label{font-size:14px; font-weight:600; margin-top:18px; display:block;}
+
+  .brand{
+    font-size:13px;
+    letter-spacing:.2px;
+    color:#666;
+    margin-bottom:10px;
+  }
+
+  h1{
+    font-size:22px;
+    margin:0 0 10px 0;
+    line-height:1.25;
+  }
+
+  p{
+    color:#444;
+    line-height:1.45;
+    font-size:15px;
+    margin:10px 0;
+  }
+
+  label{
+    font-size:14px;
+    font-weight:600;
+    margin-top:18px;
+    display:block;
+  }
+
   input{
-    width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;
-    font-size:15px; margin-top:6px;
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+    margin-top:6px;
   }
-  .hint{font-size:12px; color:#777; margin-top:12px;}
+
+  .hint{
+    font-size:12px;
+    color:#777;
+    margin-top:12px;
+  }
+
   .btn{
-    width:100%; padding:14px; background:var(--pc-blue); border:none; color:#fff;
-    font-size:16px; border-radius:8px; margin-top:22px; cursor:pointer; font-weight:600;
+    width:100%;
+    padding:14px;
+    background:var(--pc-blue);
+    border:none;
+    color:#fff;
+    font-size:16px;
+    border-radius:8px;
+    margin-top:22px;
+    cursor:pointer;
+    font-weight:600;
   }
-  .btn:hover{background:#005fcc;}
-  .btn-secondary{margin-top:10px; background:#e6e6e6; color:#333;}
-  .footer{font-size:12px; color:#888; margin-top:18px;}
+
+  .btn:hover{ background:#005fcc; }
+
+  .btn-secondary{
+    margin-top:10px;
+    background:#e6e6e6;
+    color:#333;
+  }
+
+  .footer{
+    font-size:12px;
+    color:#888;
+    margin-top:18px;
+  }
+
+  /* ===== Overlay animation ===== */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.86);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+
+  .overlay.active{
+    opacity:1;
+    pointer-events:all;
+  }
+
+  .overlay-box{
+    text-align:center;
+    color:#fff;
+    width:min(360px, 92vw);
+    padding:22px 18px;
+  }
+
+  .spinner{
+    width:54px;
+    height:54px;
+    border:4px solid rgba(255,255,255,0.25);
+    border-top-color:var(--pc-pink);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 16px;
+  }
+
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  .overlay-title{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:6px;
+    letter-spacing:.2px;
+  }
+
+  .overlay-text{
+    font-size:14px;
+    opacity:.9;
+    line-height:1.4;
+  }
 </style>
-
-<script>
-  function redirectToAwareness(){
-    // No data is stored or transmitted.
-    window.location.href = "awareness.html";
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const pw = document.getElementById('pw');
-    if (!pw) return;
-
-    // Redirect as soon as the user tries to enter a password (tap/click/focus).
-    const go = (e) => {
-      if (e && typeof e.preventDefault === 'function') e.preventDefault();
-      redirectToAwareness();
-    };
-
-    pw.addEventListener('focus', go, { passive: false });
-    pw.addEventListener('click', go, { passive: false });
-    pw.addEventListener('pointerdown', go, { passive: false });
-    pw.addEventListener('touchstart', go, { passive: false });
-  });
-</script>
 </head>
 
 <body>
@@ -74,11 +163,58 @@
 
     <div class="hint">Note: For security reasons, never enter real passwords on unexpected pages.</div>
 
-    <!-- Optional: Button can remain; it also redirects (same behavior). -->
-    <button class="btn" type="button" onclick="redirectToAwareness()">View menu</button>
-    <button class="btn btn-secondary" type="button" onclick="document.getElementById('email').value=''">Reset</button>
+    <button class="btn" type="button" id="viewMenuBtn">View menu</button>
+    <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
 
     <div class="footer">© Porsche Consulting · Internal page</div>
   </div>
+
+  <!-- Overlay shown before redirect -->
+  <div id="securityOverlay" class="overlay" aria-hidden="true">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <div class="overlay-title">Checking security…</div>
+      <div class="overlay-text">Please wait a moment.</div>
+    </div>
+  </div>
+
+<script>
+  function startInterceptRedirect(){
+    // No data is stored or transmitted.
+    const overlay = document.getElementById('securityOverlay');
+    overlay.classList.add('active');
+
+    // Short dramatic pause, then redirect:
+    setTimeout(() => {
+      window.location.href = "awareness.html";
+    }, 1100); // 1.1 sec
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const pw = document.getElementById('pw');
+    const viewBtn = document.getElementById('viewMenuBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const email = document.getElementById('email');
+
+    // Redirect when user tries to type password (tap/click/focus)
+    const go = (e) => {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      startInterceptRedirect();
+    };
+
+    pw.addEventListener('focus', go, { passive:false });
+    pw.addEventListener('click', go, { passive:false });
+    pw.addEventListener('touchstart', go, { passive:false });
+    pw.addEventListener('pointerdown', go, { passive:false });
+
+    // Also redirect if they click "View menu"
+    viewBtn.addEventListener('click', startInterceptRedirect);
+
+    // Reset only clears email (password field redirects anyway)
+    resetBtn.addEventListener('click', () => {
+      email.value = "";
+    });
+  });
+</script>
 </body>
 </html>
